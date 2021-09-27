@@ -1,7 +1,7 @@
 const {SlashCommandBuilder} = require('@discordjs/builders');
 
 module.exports = {
-    Data : new SlashCommandBuilder()
+    data : new SlashCommandBuilder()
             .setName('server')
             .setDescription('Replies with server info!'),
 

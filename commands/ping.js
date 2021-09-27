@@ -1,7 +1,7 @@
 const {SlashCommandBuilder} = require('@discordjs/builders');
 
 module.exports = {
-    Data : new SlashCommandBuilder()
+    data : new SlashCommandBuilder()
             .setName('ping')
             .setDescription('replies with pong!'),
 
