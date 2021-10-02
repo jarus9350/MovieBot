@@ -4,6 +4,7 @@ const { MessageEmbed } = require('discord.js');
 const axios = require('axios');
 
 var res = {};
+const imdbList = [];
 
 module.exports = {
     data : new SlashCommandBuilder()
@@ -37,15 +38,16 @@ module.exports = {
         const link = 'https://images.unsplash.com/photo-1616530940355-351fabd9524b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1035&q=80';
 
         const objList = [];
+        const emoji = [':one:',':two:',':three:',':four:',':five:',':six:',':seven:',':eight:',':nine:',':keycap_ten:'];
         Search.forEach((element,i) => {
             let obj = {
-                name: `${i+1}.)  ${element.Title} | ${element.Year}`,
-                value: '-------------------------------------------',
+                name: `${emoji[i]}  ${element.Title} | ${element.Year}`,
+                value: '\u200B',
                 inline: false
             }
+            let id = element.imdbID;
+            imdbList.push(id);
             objList.push(obj);
-            // console.log(obj);
-            // console.log(i++);
         });
         const exampleEmbed = new MessageEmbed()
 	        .setTitle(`List of Movies , search word : "${name}"`)
@@ -54,19 +56,14 @@ module.exports = {
 	        .setThumbnail(link)
 	        .addField('NO.       MOVIE       RELEASED YEAR','-------------------------------------------',false )
 	        .addFields(
-                objList,
-                // { name: 'Inline field title', value: '-------------------------------------------', inline: false },
-		        // { name: 'Inline field title', value: '-------------------------------------------', inline: false },
-                // { name: 'Inline field title', value: '-------------------------------------------', inline: false},
+                objList
             )
-	        //.setImage('https://i.imgur.com/AfFp7pu.png')
 	        .setTimestamp()
 	        .setFooter(`total results : ${totalResults}`, link);
 
-       // interaction.editReply(`name : ${Search[0].Title} , released in ${Search[0].Year}`);
         interaction.editReply({ embeds: [exampleEmbed] });
-        //await interaction.reply(`Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}`);
+
     },
-    response : res
+    list : imdbList
 };
 
